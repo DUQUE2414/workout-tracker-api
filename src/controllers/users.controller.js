@@ -1,9 +1,26 @@
+// src/controllers/users.controller.js
+
 const users = [];
 let Id = 1;
 
 // GET /api/v1/users
 const getUsers = (req, res) => {
-    res.status(200).json(users);
+    const { role, search } = req.query;
+    let result = [...users];
+
+    if (role && role.trim() !== "") {
+        result = result.filter(usuario => 
+            usuario.role && usuario.role.toLowerCase() === role.trim().toLowerCase()
+        );
+    }
+
+    if (search && search.trim() !== "") {
+        result = result.filter(usuario => 
+            usuario.name && usuario.name.toLowerCase().includes(search.trim().toLowerCase())
+        );
+    }
+
+    res.status(200).json(result);
 };
 
 // GET /api/v1/users/:id
@@ -17,7 +34,6 @@ const getUserID = (req, res) => {
 
     res.status(200).json(user);
 };
-
 
 // POST /api/v1/users
 const createUser = (req, res) => {
@@ -36,6 +52,7 @@ const createUser = (req, res) => {
     };
 
     users.push(newUser);
+
     res.status(201).json(newUser);
 };
 

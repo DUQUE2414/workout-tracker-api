@@ -1,4 +1,12 @@
-const { getUsers, getUserID, createUser, updateUser, deleteUser } = require("../../controllers/users.controller");
+const express = require("express");
+const router = express.Router();
+const {
+    getUsers,
+    getUserID,
+    createUser,
+    updateUser,
+    deleteUser
+} = require("../../controllers/users.controller");
 
 router.get("/", getUsers);
 router.get("/:id", getUserID);

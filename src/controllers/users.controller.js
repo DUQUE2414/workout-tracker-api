@@ -39,8 +39,33 @@ const createUser = (req, res) => {
     res.status(201).json(newUser);
 };
 
+// PUT /api/v1/users/:id
+const updateUser = (req, res) => {
+    const { id } = req.params;
+    const { name, email, role } = req.body;
+
+    const index = users.findIndex(usuario => usuario.id === Number(id));
+    if (index === -1) {
+        return res.status(404).json({ error: "Usuario no encontrado" });
+    }
+
+    if (!name || !email) {                  
+        return res.status(400).json({ error: "Name y email son requeridos" });
+    }
+
+    users[index] = {
+        ...users[index],
+        name,
+        email,
+        role: role || users[index].role
+    };
+
+    res.status(200).json(users[index]);
+};
+
 module.exports = {
     getUsers,
     getUserID,
-    createUser
+    createUser,
+    updateUser
 };

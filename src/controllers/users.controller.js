@@ -1,32 +1,36 @@
-// src/controllers/users.controller.js
+const usuarios = [];
+let idCounter = 1;
 
-const users = [];
-let Id = 1;
-
-// GET /api/v1/users
+// GET /api/v1/usuarios (Soporta query params: ?nivel_experiencia=... & ?search=...)
 const getUsers = (req, res) => {
-    const { role, search } = req.query;
-    let result = [...users];
+    const { nivel_experiencia, search } = req.query;
+    let result = [...usuarios];
 
-    if (role && role.trim() !== "") {
+    // 1. Filtrar por nivel de experiencia
+    if (nivel_experiencia && nivel_experiencia.trim() !== "") {
         result = result.filter(usuario => 
-            usuario.role && usuario.role.toLowerCase() === role.trim().toLowerCase()
+            usuario.nivel_experiencia && usuario.nivel_experiencia.toLowerCase() === nivel_experiencia.trim().toLowerCase()
         );
+
+        if (result.length === 0) {
+            return res.status(404).json({ error: "Este nivel de experiencia no está registrado" });
+        }
     }
 
+    // 2. Búsqueda por nombre
     if (search && search.trim() !== "") {
         result = result.filter(usuario => 
-            usuario.name && usuario.name.toLowerCase().includes(search.trim().toLowerCase())
+            usuario.nombre_completo && usuario.nombre_completo.toLowerCase().includes(search.trim().toLowerCase())
         );
     }
 
     res.status(200).json(result);
 };
 
-// GET /api/v1/users/:id
+// GET /api/v1/usuarios/:id
 const getUserID = (req, res) => {
     const { id } = req.params;
-    const user = users.find((usuario) => usuario.id === Number(id));
+    const user = usuarios.find((usuario) => usuario.id_usuario === Number(id));
 
     if (!user) {
         return res.status(404).json({ error: "Usuario no encontrado" });
@@ -35,62 +39,65 @@ const getUserID = (req, res) => {
     res.status(200).json(user);
 };
 
-// POST /api/v1/users
+// POST /api/v1/usuarios
 const createUser = (req, res) => {
-    const { name, email, role } = req.body;
+    const { nombre_completo, correo_electronico, nivel_experiencia } = req.body;
 
-    if (!name || !email) {
-        return res.status(400).json({ error: "Name y email son requeridos" });
+    // Validación básica de campos requeridos
+    if (!nombre_completo || !correo_electronico) {
+        return res.status(400).json({ error: "Nombre completo y correo electrónico son requeridos" });
     }
 
     const newUser = {
-        id: Id++,
-        name,
-        email,
-        role: role || "user",
-        createdAt: new Date().toISOString()
+        id_usuario: idCounter++,
+        nombre_completo,
+        correo_electronico,
+        nivel_experiencia: nivel_experiencia || "Principiante",
+        fecha_registro: new Date().toISOString()
     };
 
-    users.push(newUser);
-
+    usuarios.push(newUser);
     res.status(201).json(newUser);
 };
 
-// PUT /api/v1/users/:id
+// PUT /api/v1/usuarios/:id
 const updateUser = (req, res) => {
     const { id } = req.params;
-    const { name, email, role } = req.body;
+    const { nombre_completo, correo_electronico, nivel_experiencia } = req.body;
 
-    const index = users.findIndex(usuario => usuario.id === Number(id));
+    const index = usuarios.findIndex(usuario => usuario.id_usuario === Number(id));
     if (index === -1) {
         return res.status(404).json({ error: "Usuario no encontrado" });
     }
 
-    if (!name || !email) {                  
-        return res.status(400).json({ error: "Name y email son requeridos" });
+    if (!nombre_completo || !correo_electronico) {                  
+        return res.status(400).json({ error: "Nombre completo y correo electrónico son requeridos" });
     }
 
-    users[index] = {
-        ...users[index],
-        name,
-        email,
-        role: role || users[index].role
+    usuarios[index] = {
+        ...usuarios[index],
+        nombre_completo,
+        correo_electronico,
+        nivel_experiencia: nivel_experiencia || usuarios[index].nivel_experiencia
     };
 
-    res.status(200).json(users[index]);
+    res.status(200).json(usuarios[index]);
 };
 
-// DELETE /api/v1/users/:id
+// DELETE /api/v1/usuarios/:id
 const deleteUser = (req, res) => {
     const { id } = req.params;
-    const index = users.findIndex(usuario => usuario.id === Number(id));
+    const index = usuarios.findIndex(usuario => usuario.id_usuario === Number(id));
 
     if (index === -1) {
         return res.status(404).json({ error: "Usuario no encontrado" });
     }
 
-    const deleteUser = users.splice(index, 1);
-    res.status(200).json({ deleted: deleteUser[0].id });
+    const deleted = usuarios.splice(index, 1);
+    res.status(200).json({
+        mensaje: "Usuario eliminado correctamente",
+        id_usuario: deleted[0].id_usuario
+    });
 };
 
 module.exports = {

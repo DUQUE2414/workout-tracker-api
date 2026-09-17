@@ -3,7 +3,7 @@ const router = express.Router();
 
 const usersRoutes = require("./users.routes");
 
-// /api/v1/users
-router.use("/users", usersRoutes);
+// Monta el recurso en /api/v1/usuarios
+router.use("/usuarios", usersRoutes);
 
 module.exports = router;

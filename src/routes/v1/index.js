@@ -1,9 +1,11 @@
+// src/routes/v1/index.js
 const express = require("express");
 const router = express.Router();
 
 const usersRoutes = require("./users.routes");
+const exercisesRoutes = require("./exercises.routes");
 
-// Monta el recurso en /api/v1/usuarios
 router.use("/usuarios", usersRoutes);
+router.use("/ejercicios", exercisesRoutes);
 
 module.exports = router;

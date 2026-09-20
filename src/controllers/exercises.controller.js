@@ -90,6 +90,27 @@ const updateEjercicio = (req, res) => {
     res.status(200).json(ejercicios[index]);
 };
 
+// PATCH /api/v1/ejercicios/:id
+const patchEjercicio = (req, res) => {
+    const { id } = req.params;
+    const body = req.body;
+
+    const index = ejercicios.findIndex(ejercicio => ejercicio.id_ejercicio === Number(id));
+
+    if (index === -1) {
+        return res.status(404).json({ error: "Ejercicio no encontrado" });
+    }
+
+    // Fusiona las propiedades existentes con solo las que vengan en el body
+    ejercicios[index] = {
+        ...ejercicios[index],
+        ...body,
+        id_ejercicio: ejercicios[index].id_ejercicio // Garantiza que no modifiquen el ID
+    };
+
+    res.status(200).json(ejercicios[index]);
+};
+
 // DELETE /api/v1/ejercicios/:id
 const deleteEjercicio = (req, res) => {
     const { id } = req.params;
@@ -111,5 +132,6 @@ module.exports = {
     getEjercicioById,
     createEjercicio,
     updateEjercicio,
+    patchEjercicio,
     deleteEjercicio
 };

@@ -84,6 +84,28 @@ const updateUser = (req, res) => {
     res.status(200).json(usuarios[index]);
 };
 
+// PATCH /api/v1/usuarios/:id
+const patchUser = (req, res) => {
+    const { id } = req.params;
+    const body = req.body;
+
+    const index = usuarios.findIndex(usuario => usuario.id_usuario === Number(id));
+
+    if (index === -1) {
+        return res.status(404).json({ error: "Usuario no encontrado" });
+    }
+
+    // Fusiona las propiedades existentes con las enviadas en req.body
+    usuarios[index] = {
+        ...usuarios[index],
+        ...body,
+        id_usuario: usuarios[index].id_usuario // Garantiza que no modifiquen el ID
+    };
+
+    res.status(200).json(usuarios[index]);
+};
+
+
 // DELETE /api/v1/usuarios/:id
 const deleteUser = (req, res) => {
     const { id } = req.params;
@@ -105,5 +127,6 @@ module.exports = {
     getUserID,
     createUser,
     updateUser,
+    patchUser,
     deleteUser
 };

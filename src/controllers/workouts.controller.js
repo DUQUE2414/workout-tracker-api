@@ -1,5 +1,24 @@
-const entrenamientos = [];
-let idCounter = 1;
+const entrenamientos = [
+    {
+        id_entrenamiento: 1,
+        id_usuario: 1,
+        nombre_rutina: "Rutina de tren superior",
+        fecha_programada: "2026-09-25",
+        estado: "pendiente",
+        observaciones: "Enfoque en fuerza",
+        fecha_creacion: new Date().toISOString()
+    },
+    {
+        id_entrenamiento: 2,
+        id_usuario: 2,
+        nombre_rutina: "Rutina de piernas",
+        fecha_programada: "2026-09-27",
+        estado: "completado",
+        observaciones: "Sesión de hipertrofia",
+        fecha_creacion: new Date().toISOString()
+    }
+];
+let idCounter = 3;
 
 // GET /api/v1/entrenamientos (Soporta query params: ?id_usuario=... & ?estado=...)
 const getEntrenamientos = (req, res) => {

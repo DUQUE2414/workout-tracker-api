@@ -1,5 +1,22 @@
-const ejerciciosEntrenamiento = [];
-let idCounter = 1;
+const ejerciciosEntrenamiento = [
+    {
+        id_detalleEjercicio: 1,
+        id_entrenamiento: 1,
+        id_ejercicio: 1,
+        series: 4,
+        repeticiones: 12,
+        peso_kilos: 40
+    },
+    {
+        id_detalleEjercicio: 2,
+        id_entrenamiento: 2,
+        id_ejercicio: 2,
+        series: 5,
+        repeticiones: 10,
+        peso_kilos: 60
+    }
+];
+let idCounter = 3;
 
 // GET /api/v1/ejercicios-entrenamiento (Soporta query params: ?id_entrenamiento=... & ?id_ejercicio=...)
 const getEjerciciosEntrenamiento = (req, res) => {

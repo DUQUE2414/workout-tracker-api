@@ -10,17 +10,17 @@ API RESTful desarrollada con Node.js y Express para la gestión integral de usua
 
 | Método | Endpoint | Descripción | Restricción / Estado |
 | :--- | :--- | :--- | :--- |
-| **GET** | `/api/v1/usuarios` | Listar usuarios (Filtros: `?nivel_experiencia=` y `?search=`)[cite: 2] | Pública / 200 OK o 404 Not Found[cite: 2] |
-| **GET** | `/api/v1/usuarios/:id` | Obtener un usuario específico por su ID (`id_usuario`)[cite: 2] | Pública / 200 OK o 404 Not Found[cite: 2] |
-| **POST** | `/api/v1/usuarios` | Registrar un nuevo usuario en el sistema[cite: 2] | Pública / 201 Created o 400 Bad Request[cite: 2] |
-| **PUT** | `/api/v1/usuarios/:id` | Actualización integral de un usuario[cite: 2] | Pública / 200 OK, 400 Bad Request o 404 Not Found[cite: 2] |
-| **PATCH** | `/api/v1/usuarios/:id` | Actualización parcial de datos de un usuario[cite: 2] | Pública / 200 OK o 404 Not Found[cite: 2] |
-| **DELETE** | `/api/v1/usuarios/:id` | Eliminar un usuario del sistema[cite: 2] | Pública / 200 OK o 404 Not Found[cite: 2] |
+| **GET** | `/api/v1/usuarios` | Listar usuarios (Filtros: `?nivel_experiencia=` y `?search=`) | Pública / 200 OK o 404 Not Found |
+| **GET** | `/api/v1/usuarios/:id` | Obtener un usuario específico por su ID (`id_usuario`) | Pública / 200 OK o 404 Not Found |
+| **POST** | `/api/v1/usuarios` | Registrar un nuevo usuario en el sistema | Pública / 201 Created o 400 Bad Request |
+| **PUT** | `/api/v1/usuarios/:id` | Actualización integral de un usuario | Pública / 200 OK, 400 Bad Request o 404 Not Found |
+| **PATCH** | `/api/v1/usuarios/:id` | Actualización parcial de datos de un usuario | Pública / 200 OK o 404 Not Found |
+| **DELETE** | `/api/v1/usuarios/:id` | Eliminar un usuario del sistema | Pública / 200 OK o 404 Not Found |
 
 ### 📝 Ejemplos de Request y Response
 
-* **GET** `/api/v1/usuarios?nivel_experiencia=Intermedio`[cite: 2]
-  * **Response (`200 OK`):**[cite: 2]
+* **GET** `/api/v1/usuarios?nivel_experiencia=Intermedio`
+  * **Response (`200 OK`):**
     ```json
     [
       {
@@ -33,16 +33,16 @@ API RESTful desarrollada con Node.js y Express para la gestión integral de usua
     ]
     ```
 
-* **GET** `/api/v1/usuarios/999`[cite: 2]
-  * **Response (`404 Not Found`):**[cite: 2]
+* **GET** `/api/v1/usuarios/999`
+  * **Response (`404 Not Found`):**
     ```json
     {
       "error": "Usuario no encontrado"
     }
     ```
 
-* **POST** `/api/v1/usuarios`[cite: 2]
-  * **Request Body:**[cite: 2]
+* **POST** `/api/v1/usuarios`
+  * **Request Body:**
     ```json
     {
       "nombre_completo": "Carlos Gómez",
@@ -50,7 +50,7 @@ API RESTful desarrollada con Node.js y Express para la gestión integral de usua
       "nivel_experiencia": "Principiante"
     }
     ```
-  * **Response (`201 Created`):**[cite: 2]
+  * **Response (`201 Created`):**
     ```json
     {
       "id_usuario": 3,
@@ -60,15 +60,15 @@ API RESTful desarrollada con Node.js y Express para la gestión integral de usua
       "fecha_registro": "2026-09-21T18:00:00.000Z"
     }
     ```
-  * **Response (`400 Bad Request`):**[cite: 2]
+  * **Response (`400 Bad Request`):**
     ```json
     {
       "error": "Nombre completo y correo electrónico son requeridos"
     }
     ```
 
-* **PUT** `/api/v1/usuarios/1`[cite: 2]
-  * **Request Body:**[cite: 2]
+* **PUT** `/api/v1/usuarios/1`
+  * **Request Body:**
     ```json
     {
       "nombre_completo": "Juan Pérez Actualizado",
@@ -76,7 +76,7 @@ API RESTful desarrollada con Node.js y Express para la gestión integral de usua
       "nivel_experiencia": "Avanzado"
     }
     ```
-  * **Response (`200 OK`):**[cite: 2]
+  * **Response (`200 OK`):**
     ```json
     {
       "id_usuario": 1,
@@ -87,14 +87,14 @@ API RESTful desarrollada con Node.js y Express para la gestión integral de usua
     }
     ```
 
-* **PATCH** `/api/v1/usuarios/1`[cite: 2]
-  * **Request Body:**[cite: 2]
+* **PATCH** `/api/v1/usuarios/1`
+  * **Request Body:**
     ```json
     {
       "nivel_experiencia": "Avanzado"
     }
     ```
-  * **Response (`200 OK`):**[cite: 2]
+  * **Response (`200 OK`):**
     ```json
     {
       "id_usuario": 1,
@@ -105,8 +105,8 @@ API RESTful desarrollada con Node.js y Express para la gestión integral de usua
     }
     ```
 
-* **DELETE** `/api/v1/usuarios/1`[cite: 2]
-  * **Response (`200 OK`):**[cite: 2]
+* **DELETE** `/api/v1/usuarios/1`
+  * **Response (`200 OK`):**
     ```json
     {
       "mensaje": "Usuario eliminado correctamente",
@@ -117,10 +117,10 @@ API RESTful desarrollada con Node.js y Express para la gestión integral de usua
 ### 🚦 Códigos de Estado del Módulo
 | Código | Estado | Descripción |
 | :---: | :--- | :--- |
-| **`200`** | **OK** | Solicitud procesada correctamente (`GET`, `PUT`, `PATCH`, `DELETE`)[cite: 2]. |
-| **`201`** | **Created** | Usuario registrado exitosamente (`POST`)[cite: 2]. |
-| **`400`** | **Bad Request** | Falta `nombre_completo` o `correo_electronico` (`POST`, `PUT`)[cite: 2]. |
-| **`404`** | **Not Found** | Usuario no encontrado por ID o nivel de experiencia no registrado (`GET`, `PUT`, `PATCH`, `DELETE`)[cite: 2]. |
+| **`200`** | **OK** | Solicitud procesada correctamente (`GET`, `PUT`, `PATCH`, `DELETE`). |
+| **`201`** | **Created** | Usuario registrado exitosamente (`POST`). |
+| **`400`** | **Bad Request** | Falta `nombre_completo` o `correo_electronico` (`POST`, `PUT`). |
+| **`404`** | **Not Found** | Usuario no encontrado por ID o nivel de experiencia no registrado (`GET`, `PUT`, `PATCH`, `DELETE`). |
 
 ---
 
@@ -130,17 +130,17 @@ API RESTful desarrollada con Node.js y Express para la gestión integral de usua
 
 | Método | Endpoint | Descripción | Restricción / Estado |
 | :--- | :--- | :--- | :--- |
-| **GET** | `/api/v1/ejercicios` | Obtener catálogo de ejercicios (Filtros: `?grupo_muscular=` y `?search=`)[cite: 1] | Pública / 200 OK[cite: 1] |
-| **GET** | `/api/v1/ejercicios/:id` | Obtener un ejercicio específico por su ID (`id_ejercicio`)[cite: 1] | Pública / 200 OK o 404 Not Found[cite: 1] |
-| **POST** | `/api/v1/ejercicios` | Crear un nuevo ejercicio en el catálogo maestro[cite: 1] | Pública / 201 Created o 400 Bad Request[cite: 1] |
-| **PUT** | `/api/v1/ejercicios/:id` | Actualización integral de un ejercicio[cite: 1] | Pública / 200 OK, 400 Bad Request o 404 Not Found[cite: 1] |
-| **PATCH** | `/api/v1/ejercicios/:id` | Actualización parcial de un ejercicio[cite: 1] | Pública / 200 OK o 404 Not Found[cite: 1] |
-| **DELETE** | `/api/v1/ejercicios/:id` | Eliminar un ejercicio del catálogo[cite: 1] | Pública / 200 OK o 404 Not Found[cite: 1] |
+| **GET** | `/api/v1/ejercicios` | Obtener catálogo de ejercicios (Filtros: `?grupo_muscular=` y `?search=`) | Pública / 200 OK |
+| **GET** | `/api/v1/ejercicios/:id` | Obtener un ejercicio específico por su ID (`id_ejercicio`) | Pública / 200 OK o 404 Not Found |
+| **POST** | `/api/v1/ejercicios` | Crear un nuevo ejercicio en el catálogo maestro | Pública / 201 Created o 400 Bad Request |
+| **PUT** | `/api/v1/ejercicios/:id` | Actualización integral de un ejercicio | Pública / 200 OK, 400 Bad Request o 404 Not Found |
+| **PATCH** | `/api/v1/ejercicios/:id` | Actualización parcial de un ejercicio | Pública / 200 OK o 404 Not Found |
+| **DELETE** | `/api/v1/ejercicios/:id` | Eliminar un ejercicio del catálogo | Pública / 200 OK o 404 Not Found |
 
 ### 📝 Ejemplos de Request y Response
 
-* **GET** `/api/v1/ejercicios/1`[cite: 1]
-  * **Response (`200 OK`):**[cite: 1]
+* **GET** `/api/v1/ejercicios/1`
+  * **Response (`200 OK`):**
     ```json
     {
       "id_ejercicio": 1,
@@ -153,8 +153,8 @@ API RESTful desarrollada con Node.js y Express para la gestión integral de usua
     }
     ```
 
-* **POST** `/api/v1/ejercicios`[cite: 1]
-  * **Request Body:**[cite: 1]
+* **POST** `/api/v1/ejercicios`
+  * **Request Body:**
     ```json
     {
       "nombre_ejercicio": "Dominadas",
@@ -164,7 +164,7 @@ API RESTful desarrollada con Node.js y Express para la gestión integral de usua
       "nivel_dificultad": "Medio"
     }
     ```
-  * **Response (`201 Created`):**[cite: 1]
+  * **Response (`201 Created`):**
     ```json
     {
       "id_ejercicio": 3,
@@ -176,15 +176,15 @@ API RESTful desarrollada con Node.js y Express para la gestión integral de usua
       "fecha_registro": "2026-09-21T18:00:00.000Z"
     }
     ```
-  * **Response (`400 Bad Request`):**[cite: 1]
+  * **Response (`400 Bad Request`):**
     ```json
     {
       "error": "Nombre del ejercicio, descripción, categoría y grupo muscular son requeridos"
     }
     ```
 
-* **PUT** `/api/v1/ejercicios/1`[cite: 1]
-  * **Request Body:**[cite: 1]
+* **PUT** `/api/v1/ejercicios/1`
+  * **Request Body:**
     ```json
     {
       "nombre_ejercicio": "Press de Banca Inclinado",
@@ -194,7 +194,7 @@ API RESTful desarrollada con Node.js y Express para la gestión integral de usua
       "nivel_dificultad": "Alto"
     }
     ```
-  * **Response (`200 OK`):**[cite: 1]
+  * **Response (`200 OK`):**
     ```json
     {
       "id_ejercicio": 1,
@@ -207,14 +207,14 @@ API RESTful desarrollada con Node.js y Express para la gestión integral de usua
     }
     ```
 
-* **PATCH** `/api/v1/ejercicios/1`[cite: 1]
-  * **Request Body:**[cite: 1]
+* **PATCH** `/api/v1/ejercicios/1`
+  * **Request Body:**
     ```json
     {
       "nivel_dificultad": "Alto"
     }
     ```
-  * **Response (`200 OK`):**[cite: 1]
+  * **Response (`200 OK`):**
     ```json
     {
       "id_ejercicio": 1,
@@ -227,8 +227,8 @@ API RESTful desarrollada con Node.js y Express para la gestión integral de usua
     }
     ```
 
-* **DELETE** `/api/v1/ejercicios/1`[cite: 1]
-  * **Response (`200 OK`):**[cite: 1]
+* **DELETE** `/api/v1/ejercicios/1`
+  * **Response (`200 OK`):**
     ```json
     {
       "mensaje": "Ejercicio eliminado correctamente",
@@ -239,10 +239,10 @@ API RESTful desarrollada con Node.js y Express para la gestión integral de usua
 ### 🚦 Códigos de Estado del Módulo
 | Código | Estado | Descripción |
 | :---: | :--- | :--- |
-| **`200`** | **OK** | Operación exitosa (`GET`, `PUT`, `PATCH`, `DELETE`)[cite: 1]. |
-| **`201`** | **Created** | Ejercicio registrado correctamente (`POST`)[cite: 1]. |
-| **`400`** | **Bad Request** | Falta `nombre_ejercicio`, `descripcion`, `categoria` o `grupo_muscular` (`POST`, `PUT`)[cite: 1]. |
-| **`404`** | **Not Found** | Ejercicio no encontrado por ID (`GET`, `PUT`, `PATCH`, `DELETE`)[cite: 1]. |
+| **`200`** | **OK** | Operación exitosa (`GET`, `PUT`, `PATCH`, `DELETE`). |
+| **`201`** | **Created** | Ejercicio registrado correctamente (`POST`). |
+| **`400`** | **Bad Request** | Falta `nombre_ejercicio`, `descripcion`, `categoria` o `grupo_muscular` (`POST`, `PUT`). |
+| **`404`** | **Not Found** | Ejercicio no encontrado por ID (`GET`, `PUT`, `PATCH`, `DELETE`). |
 
 ---
 
@@ -252,17 +252,17 @@ API RESTful desarrollada con Node.js y Express para la gestión integral de usua
 
 | Método | Endpoint | Descripción | Restricción / Estado |
 | :--- | :--- | :--- | :--- |
-| **GET** | `/api/v1/entrenamientos` | Listar entrenamientos (Filtros: `?id_usuario=` y `?estado=`)[cite: 4] | Pública / 200 OK[cite: 4] |
-| **GET** | `/api/v1/entrenamientos/:id` | Obtener un entrenamiento específico por su ID (`id_entrenamiento`)[cite: 4] | Pública / 200 OK o 404 Not Found[cite: 4] |
-| **POST** | `/api/v1/entrenamientos` | Crear una nueva sesión o rutina de entrenamiento[cite: 4] | Pública / 201 Created o 400 Bad Request[cite: 4] |
-| **PUT** | `/api/v1/entrenamientos/:id` | Actualización integral de un entrenamiento[cite: 4] | Pública / 200 OK, 400 Bad Request o 404 Not Found[cite: 4] |
-| **PATCH** | `/api/v1/entrenamientos/:id` | Actualización parcial (`estado`, `observaciones`, etc.)[cite: 4] | Pública / 200 OK o 404 Not Found[cite: 4] |
-| **DELETE** | `/api/v1/entrenamientos/:id` | Eliminar una sesión de entrenamiento[cite: 4] | Pública / 200 OK o 404 Not Found[cite: 4] |
+| **GET** | `/api/v1/entrenamientos` | Listar entrenamientos (Filtros: `?id_usuario=` y `?estado=`) | Pública / 200 OK |
+| **GET** | `/api/v1/entrenamientos/:id` | Obtener un entrenamiento específico por su ID (`id_entrenamiento`) | Pública / 200 OK o 404 Not Found |
+| **POST** | `/api/v1/entrenamientos` | Crear una nueva sesión o rutina de entrenamiento | Pública / 201 Created o 400 Bad Request |
+| **PUT** | `/api/v1/entrenamientos/:id` | Actualización integral de un entrenamiento | Pública / 200 OK, 400 Bad Request o 404 Not Found |
+| **PATCH** | `/api/v1/entrenamientos/:id` | Actualización parcial (`estado`, `observaciones`, etc.) | Pública / 200 OK o 404 Not Found |
+| **DELETE** | `/api/v1/entrenamientos/:id` | Eliminar una sesión de entrenamiento | Pública / 200 OK o 404 Not Found |
 
 ### 📝 Ejemplos de Request y Response
 
-* **GET** `/api/v1/entrenamientos?id_usuario=1&estado=pendiente`[cite: 4]
-  * **Response (`200 OK`):**[cite: 4]
+* **GET** `/api/v1/entrenamientos?id_usuario=1&estado=pendiente`
+  * **Response (`200 OK`):**
     ```json
     [
       {
@@ -277,8 +277,8 @@ API RESTful desarrollada con Node.js y Express para la gestión integral de usua
     ]
     ```
 
-* **POST** `/api/v1/entrenamientos`[cite: 4]
-  * **Request Body:**[cite: 4]
+* **POST** `/api/v1/entrenamientos`
+  * **Request Body:**
     ```json
     {
       "id_usuario": 1,
@@ -287,7 +287,7 @@ API RESTful desarrollada con Node.js y Express para la gestión integral de usua
       "observaciones": "Enfoque en hipertrofia"
     }
     ```
-  * **Response (`201 Created`):**[cite: 4]
+  * **Response (`201 Created`):**
     ```json
     {
       "id_entrenamiento": 3,
@@ -299,15 +299,15 @@ API RESTful desarrollada con Node.js y Express para la gestión integral de usua
       "fecha_creacion": "2026-09-21T18:00:00.000Z"
     }
     ```
-  * **Response (`400 Bad Request`):**[cite: 4]
+  * **Response (`400 Bad Request`):**
     ```json
     {
       "error": "El ID de usuario, nombre de rutina y fecha programada son requeridos"
     }
     ```
 
-* **PUT** `/api/v1/entrenamientos/1`[cite: 4]
-  * **Request Body:**[cite: 4]
+* **PUT** `/api/v1/entrenamientos/1`
+  * **Request Body:**
     ```json
     {
       "id_usuario": 1,
@@ -317,7 +317,7 @@ API RESTful desarrollada con Node.js y Express para la gestión integral de usua
       "observaciones": "Se completaron todas las series"
     }
     ```
-  * **Response (`200 OK`):**[cite: 4]
+  * **Response (`200 OK`):**
     ```json
     {
       "id_entrenamiento": 1,
@@ -330,14 +330,14 @@ API RESTful desarrollada con Node.js y Express para la gestión integral de usua
     }
     ```
 
-* **PATCH** `/api/v1/entrenamientos/1`[cite: 4]
-  * **Request Body:**[cite: 4]
+* **PATCH** `/api/v1/entrenamientos/1`
+  * **Request Body:**
     ```json
     {
       "estado": "completado"
     }
     ```
-  * **Response (`200 OK`):**[cite: 4]
+  * **Response (`200 OK`):**
     ```json
     {
       "id_entrenamiento": 1,
@@ -350,8 +350,8 @@ API RESTful desarrollada con Node.js y Express para la gestión integral de usua
     }
     ```
 
-* **DELETE** `/api/v1/entrenamientos/1`[cite: 4]
-  * **Response (`200 OK`):**[cite: 4]
+* **DELETE** `/api/v1/entrenamientos/1`
+  * **Response (`200 OK`):**
     ```json
     {
       "mensaje": "Entrenamiento eliminado correctamente",
@@ -362,10 +362,10 @@ API RESTful desarrollada con Node.js y Express para la gestión integral de usua
 ### 🚦 Códigos de Estado del Módulo
 | Código | Estado | Descripción |
 | :---: | :--- | :--- |
-| **`200`** | **OK** | Solicitud procesada exitosamente (`GET`, `PUT`, `PATCH`, `DELETE`)[cite: 4]. |
-| **`201`** | **Created** | Entrenamiento creado exitosamente (`POST`)[cite: 4]. |
-| **`400`** | **Bad Request** | Falta `id_usuario`, `nombre_rutina` o `fecha_programada` (`POST`, `PUT`)[cite: 4]. |
-| **`404`** | **Not Found** | Entrenamiento no encontrado por ID (`GET`, `PUT`, `PATCH`, `DELETE`)[cite: 4]. |
+| **`200`** | **OK** | Solicitud procesada exitosamente (`GET`, `PUT`, `PATCH`, `DELETE`). |
+| **`201`** | **Created** | Entrenamiento creado exitosamente (`POST`). |
+| **`400`** | **Bad Request** | Falta `id_usuario`, `nombre_rutina` o `fecha_programada` (`POST`, `PUT`). |
+| **`404`** | **Not Found** | Entrenamiento no encontrado por ID (`GET`, `PUT`, `PATCH`, `DELETE`). |
 
 ---
 
@@ -375,17 +375,17 @@ API RESTful desarrollada con Node.js y Express para la gestión integral de usua
 
 | Método | Endpoint | Descripción | Restricción / Estado |
 | :--- | :--- | :--- | :--- |
-| **GET** | `/api/v1/ejercicios-entrenamiento` | Listar asignaciones (Filtros: `?id_entrenamiento=` y `?id_ejercicio=`)[cite: 3] | Pública / 200 OK[cite: 3] |
-| **GET** | `/api/v1/ejercicios-entrenamiento/:id` | Obtener detalle por su ID (`id_detalleEjercicio`)[cite: 3] | Pública / 200 OK o 404 Not Found[cite: 3] |
-| **POST** | `/api/v1/ejercicios-entrenamiento` | Asignar ejercicio a rutina (`series`, `repeticiones`, `peso_kilos`)[cite: 3] | Pública / 201 Created o 400 Bad Request[cite: 3] |
-| **PUT** | `/api/v1/ejercicios-entrenamiento/:id` | Actualización integral de la asignación[cite: 3] | Pública / 200 OK, 400 Bad Request o 404 Not Found[cite: 3] |
-| **PATCH** | `/api/v1/ejercicios-entrenamiento/:id` | Actualización parcial (`series`, `repeticiones`, `peso_kilos`)[cite: 3] | Pública / 200 OK o 404 Not Found[cite: 3] |
-| **DELETE** | `/api/v1/ejercicios-entrenamiento/:id` | Eliminar el detalle de un ejercicio en la rutina[cite: 3] | Pública / 200 OK o 404 Not Found[cite: 3] |
+| **GET** | `/api/v1/ejercicios-entrenamiento` | Listar asignaciones (Filtros: `?id_entrenamiento=` y `?id_ejercicio=`) | Pública / 200 OK |
+| **GET** | `/api/v1/ejercicios-entrenamiento/:id` | Obtener detalle por su ID (`id_detalleEjercicio`) | Pública / 200 OK o 404 Not Found |
+| **POST** | `/api/v1/ejercicios-entrenamiento` | Asignar ejercicio a rutina (`series`, `repeticiones`, `peso_kilos`) | Pública / 201 Created o 400 Bad Request |
+| **PUT** | `/api/v1/ejercicios-entrenamiento/:id` | Actualización integral de la asignación | Pública / 200 OK, 400 Bad Request o 404 Not Found |
+| **PATCH** | `/api/v1/ejercicios-entrenamiento/:id` | Actualización parcial (`series`, `repeticiones`, `peso_kilos`) | Pública / 200 OK o 404 Not Found |
+| **DELETE** | `/api/v1/ejercicios-entrenamiento/:id` | Eliminar el detalle de un ejercicio en la rutina | Pública / 200 OK o 404 Not Found |
 
 ### 📝 Ejemplos de Request y Response
 
-* **GET** `/api/v1/ejercicios-entrenamiento/1`[cite: 3]
-  * **Response (`200 OK`):**[cite: 3]
+* **GET** `/api/v1/ejercicios-entrenamiento/1`
+  * **Response (`200 OK`):**
     ```json
     {
       "id_detalleEjercicio": 1,
@@ -397,8 +397,8 @@ API RESTful desarrollada con Node.js y Express para la gestión integral de usua
     }
     ```
 
-* **POST** `/api/v1/ejercicios-entrenamiento`[cite: 3]
-  * **Request Body:**[cite: 3]
+* **POST** `/api/v1/ejercicios-entrenamiento`
+  * **Request Body:**
     ```json
     {
       "id_entrenamiento": 1,
@@ -408,7 +408,7 @@ API RESTful desarrollada con Node.js y Express para la gestión integral de usua
       "peso_kilos": 50
     }
     ```
-  * **Response (`201 Created`):**[cite: 3]
+  * **Response (`201 Created`):**
     ```json
     {
       "id_detalleEjercicio": 3,
@@ -419,15 +419,15 @@ API RESTful desarrollada con Node.js y Express para la gestión integral de usua
       "peso_kilos": 50
     }
     ```
-  * **Response (`400 Bad Request`):**[cite: 3]
+  * **Response (`400 Bad Request`):**
     ```json
     {
       "error": "Los campos id_entrenamiento, id_ejercicio, series y repeticiones son requeridos"
     }
     ```
 
-* **PUT** `/api/v1/ejercicios-entrenamiento/1`[cite: 3]
-  * **Request Body:**[cite: 3]
+* **PUT** `/api/v1/ejercicios-entrenamiento/1`
+  * **Request Body:**
     ```json
     {
       "id_entrenamiento": 1,
@@ -437,7 +437,7 @@ API RESTful desarrollada con Node.js y Express para la gestión integral de usua
       "peso_kilos": 60
     }
     ```
-  * **Response (`200 OK`):**[cite: 3]
+  * **Response (`200 OK`):**
     ```json
     {
       "id_detalleEjercicio": 1,
@@ -449,14 +449,14 @@ API RESTful desarrollada con Node.js y Express para la gestión integral de usua
     }
     ```
 
-* **PATCH** `/api/v1/ejercicios-entrenamiento/1`[cite: 3]
-  * **Request Body:**[cite: 3]
+* **PATCH** `/api/v1/ejercicios-entrenamiento/1`
+  * **Request Body:**
     ```json
     {
       "peso_kilos": 45
     }
     ```
-  * **Response (`200 OK`):**[cite: 3]
+  * **Response (`200 OK`):**
     ```json
     {
       "id_detalleEjercicio": 1,
@@ -468,8 +468,8 @@ API RESTful desarrollada con Node.js y Express para la gestión integral de usua
     }
     ```
 
-* **DELETE** `/api/v1/ejercicios-entrenamiento/1`[cite: 3]
-  * **Response (`200 OK`):**[cite: 3]
+* **DELETE** `/api/v1/ejercicios-entrenamiento/1`
+  * **Response (`200 OK`):**
     ```json
     {
       "mensaje": "Detalle de ejercicio eliminado correctamente",
@@ -480,10 +480,10 @@ API RESTful desarrollada con Node.js y Express para la gestión integral de usua
 ### 🚦 Códigos de Estado del Módulo
 | Código | Estado | Descripción |
 | :---: | :--- | :--- |
-| **`200`** | **OK** | Petición procesada con éxito (`GET`, `PUT`, `PATCH`, `DELETE`)[cite: 3]. |
-| **`201`** | **Created** | Asignación creada exitosamente (`POST`)[cite: 3]. |
-| **`400`** | **Bad Request** | Falta `id_entrenamiento`, `id_ejercicio`, `series` o `repeticiones` (`POST`, `PUT`)[cite: 3]. |
-| **`404`** | **Not Found** | Detalle de ejercicio no encontrado por ID (`GET`, `PUT`, `PATCH`, `DELETE`)[cite: 3]. |
+| **`200`** | **OK** | Petición procesada con éxito (`GET`, `PUT`, `PATCH`, `DELETE`). |
+| **`201`** | **Created** | Asignación creada exitosamente (`POST`). |
+| **`400`** | **Bad Request** | Falta `id_entrenamiento`, `id_ejercicio`, `series` o `repeticiones` (`POST`, `PUT`). |
+| **`404`** | **Not Found** | Detalle de ejercicio no encontrado por ID (`GET`, `PUT`, `PATCH`, `DELETE`). |
 
 ---
 
@@ -491,4 +491,4 @@ API RESTful desarrollada con Node.js y Express para la gestión integral de usua
 - **Node.js**
 - **Express.js**
 - **JavaScript (ES6+)**
-- **Arquitectura de Software:** MVC 
+- **Arquitectura de Software:** MVC (Controladores In-Memory y Enrutamiento Modular)

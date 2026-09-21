@@ -1,5 +1,24 @@
-const ejercicios = [];
-let idCounter = 1;
+const ejercicios = [
+    {
+        id_ejercicio: 1,
+        nombre_ejercicio: "Press de banca",
+        descripcion: "Ejercicio de empuje horizontal para pecho, hombros y tríceps",
+        categoria: "Fuerza",
+        grupo_muscular: "Pecho",
+        nivel_dificultad: "Medio",
+        fecha_registro: new Date().toISOString()
+    },
+    {
+        id_ejercicio: 2,
+        nombre_ejercicio: "Sentadilla",
+        descripcion: "Ejercicio compuesto para piernas y glúteos",
+        categoria: "Fuerza",
+        grupo_muscular: "Piernas",
+        nivel_dificultad: "Alto",
+        fecha_registro: new Date().toISOString()
+    }
+];
+let idCounter = 3;
 
 // GET /api/v1/ejercicios (Soporta query params: ?grupo_muscular=... & ?search=...)
 const getEjercicios = (req, res) => {

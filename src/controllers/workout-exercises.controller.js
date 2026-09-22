@@ -23,14 +23,12 @@ const getEjerciciosEntrenamiento = (req, res) => {
     const { id_entrenamiento, id_ejercicio } = req.query;
     let result = [...ejerciciosEntrenamiento];
 
-    // 1. Filtrar por entrenamiento específico
     if (id_entrenamiento) {
         result = result.filter(
             ejercicioEntrenamiento => ejercicioEntrenamiento.id_entrenamiento === Number(id_entrenamiento)
         );
     }
 
-    // 2. Filtrar por ejercicio específico
     if (id_ejercicio) {
         result = result.filter(
             ejercicioEntrenamiento => ejercicioEntrenamiento.id_ejercicio === Number(id_ejercicio)
@@ -58,10 +56,22 @@ const getEjercicioEntrenamientoById = (req, res) => {
 const createEjercicioEntrenamiento = (req, res) => {
     const { id_entrenamiento, id_ejercicio, series, repeticiones, peso_kilos } = req.body;
 
-    // Validación de campos obligatorios usando falsy check (!campo)
-    if (!id_entrenamiento || !id_ejercicio || !series || !repeticiones) {
+    // 1. Validar presencia de campos requeridos
+    if (
+        id_entrenamiento === undefined || 
+        id_ejercicio === undefined || 
+        series === undefined || 
+        repeticiones === undefined
+    ) {
         return res.status(400).json({ 
             error: "Los campos id_entrenamiento, id_ejercicio, series y repeticiones son requeridos" 
+        });
+    }
+
+    // 2. Validar que series y repeticiones sean números mayores a 0
+    if (Number(series) <= 0 || Number(repeticiones) <= 0) {
+        return res.status(400).json({ 
+            error: "Las series y repeticiones deben ser números mayores a 0" 
         });
     }
 
@@ -71,7 +81,7 @@ const createEjercicioEntrenamiento = (req, res) => {
         id_ejercicio: Number(id_ejercicio),
         series: Number(series),
         repeticiones: Number(repeticiones),
-        peso_kilos: peso_kilos ? Number(peso_kilos) : 0
+        peso_kilos: peso_kilos !== undefined && peso_kilos !== null ? Number(peso_kilos) : null
     };
 
     ejerciciosEntrenamiento.push(nuevoEjercicioEntrenamiento);
@@ -91,9 +101,22 @@ const updateEjercicioEntrenamiento = (req, res) => {
         return res.status(404).json({ error: "Detalle de ejercicio no encontrado" });
     }
 
-    if (!id_entrenamiento || !id_ejercicio || !series || !repeticiones) {
+    // 1. Validar presencia de campos requeridos
+    if (
+        id_entrenamiento === undefined || 
+        id_ejercicio === undefined || 
+        series === undefined || 
+        repeticiones === undefined
+    ) {
         return res.status(400).json({ 
             error: "Los campos id_entrenamiento, id_ejercicio, series y repeticiones son requeridos" 
+        });
+    }
+
+    // 2. Validar que series y repeticiones sean números mayores a 0
+    if (Number(series) <= 0 || Number(repeticiones) <= 0) {
+        return res.status(400).json({ 
+            error: "Las series y repeticiones deben ser números mayores a 0" 
         });
     }
 
@@ -103,7 +126,7 @@ const updateEjercicioEntrenamiento = (req, res) => {
         id_ejercicio: Number(id_ejercicio),
         series: Number(series),
         repeticiones: Number(repeticiones),
-        peso_kilos: peso_kilos ? Number(peso_kilos) : ejerciciosEntrenamiento[index].peso_kilos
+        peso_kilos: peso_kilos !== undefined && peso_kilos !== null ? Number(peso_kilos) : ejerciciosEntrenamiento[index].peso_kilos
     };
 
     res.status(200).json(ejerciciosEntrenamiento[index]);
@@ -122,19 +145,25 @@ const patchEjercicioEntrenamiento = (req, res) => {
         return res.status(404).json({ error: "Detalle de ejercicio no encontrado" });
     }
 
-    // Fusiona propiedades protegiendo la Primary Key (id_detalleEjercicio)
+    // Validar que series y repeticiones sean mayores a 0 si vienen en el body
+    if ((body.series !== undefined && Number(body.series) <= 0) || 
+        (body.repeticiones !== undefined && Number(body.repeticiones) <= 0)) {
+        return res.status(400).json({ 
+            error: "Las series y repeticiones deben ser números mayores a 0" 
+        });
+    }
+
     ejerciciosEntrenamiento[index] = {
         ...ejerciciosEntrenamiento[index],
         ...body,
         id_detalleEjercicio: ejerciciosEntrenamiento[index].id_detalleEjercicio
     };
 
-    // Asegura el tipo Number en campos numéricos recibidos en el body
-    if (body.id_entrenamiento) ejerciciosEntrenamiento[index].id_entrenamiento = Number(body.id_entrenamiento);
-    if (body.id_ejercicio) ejerciciosEntrenamiento[index].id_ejercicio = Number(body.id_ejercicio);
-    if (body.series) ejerciciosEntrenamiento[index].series = Number(body.series);
-    if (body.repeticiones) ejerciciosEntrenamiento[index].repeticiones = Number(body.repeticiones);
-    if (body.peso_kilos !== undefined) ejerciciosEntrenamiento[index].peso_kilos = Number(body.peso_kilos);
+    if (body.id_entrenamiento !== undefined) ejerciciosEntrenamiento[index].id_entrenamiento = Number(body.id_entrenamiento);
+    if (body.id_ejercicio !== undefined) ejerciciosEntrenamiento[index].id_ejercicio = Number(body.id_ejercicio);
+    if (body.series !== undefined) ejerciciosEntrenamiento[index].series = Number(body.series);
+    if (body.repeticiones !== undefined) ejerciciosEntrenamiento[index].repeticiones = Number(body.repeticiones);
+    if (body.peso_kilos !== undefined) ejerciciosEntrenamiento[index].peso_kilos = body.peso_kilos !== null ? Number(body.peso_kilos) : null;
 
     res.status(200).json(ejerciciosEntrenamiento[index]);
 };
@@ -150,7 +179,6 @@ const deleteEjercicioEntrenamiento = (req, res) => {
         return res.status(404).json({ error: "Detalle de ejercicio no encontrado" });
     }
 
-    // Desestructura el elemento eliminado para no enviar el arreglo completo
     const [deleted] = ejerciciosEntrenamiento.splice(index, 1);
 
     res.status(200).json({

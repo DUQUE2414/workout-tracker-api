@@ -5,7 +5,8 @@ const router = express.Router();
 const usersRoutes = require("./users.routes");
 const exercisesRoutes = require("./exercises.routes");
 
-router.use("/usuarios", usersRoutes);
-router.use("/ejercicios", exercisesRoutes);
+router.use('/users', usersRoutes);
+router.use('/exercises', exercisesRoutes);
+
 
 module.exports = router;
